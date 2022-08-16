@@ -1,0 +1,16 @@
+PODS:
+  - YZAnimation (0.1.0)
+
+DEPENDENCIES:
+  - YZAnimation (from `../`)
+
+EXTERNAL SOURCES:
+  YZAnimation:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  YZAnimation: 9b0389cb34a4b5d8c5827645d650eb368301f150
+
+PODFILE CHECKSUM: 86d0455d88152b489bc1a471106300abe1d79bfc
+
+COCOAPODS: 1.11.2
