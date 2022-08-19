@@ -8,6 +8,7 @@
 
 #import "YZShineAnimationViewController.h"
 #import "YZShineAnimation.h"
+#import "YZAnimation.h"
 
 @interface YZShineAnimationViewController ()
 
@@ -39,6 +40,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     // 添加子视图
     [self setupSubViews];
+    
+    // 5秒后停止所用YZAnimation下的动画效果
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [YZAnimation stopAllAnimations:self.view.layer];
+//    });
 }
 
 #pragma mark - Navigation
@@ -54,10 +60,23 @@
 - (void)shineViewSingleTap:(UIGestureRecognizer *)sender {
     YZShineParams *param = [[YZShineParams alloc] init];
     param.allowRandomColor = YES;
+    // 指定随机颜色集合
+    param.colorRandomArr = @[
+        YZ_RGB_COLOR(255.0f, 255.0f, 153.0f),
+        YZ_RGB_COLOR(255.0f, 204.0f, 204.0f),
+        YZ_RGB_COLOR(153.0f, 102.0f, 153.0f),
+        YZ_RGB_COLOR(255.0f, 102.0f, 102.0f),
+        YZ_RGB_COLOR(255.0f, 255.0f, 102.0f),
+        YZ_RGB_COLOR(244.0f, 67.0f, 54.0f),
+        YZ_RGB_COLOR(102.0f, 102.0f, 102.0f),
+        YZ_RGB_COLOR(204.0f, 204.0f, 0.0f),
+        YZ_RGB_COLOR(102.0f, 102.0f, 102.0f),
+        YZ_RGB_COLOR(153.0f, 153.0f, 51.0f)
+    ];
     param.enableFlashing = YES;
     param.animDuration = 4.0f;
     YZShineAnimation *animation = [[YZShineAnimation alloc] initWithAnimationViewLayer:sender.view.layer withShineParams:param];
-    [animation startAnimation];
+    [animation startShineAnimation];
 }
 
 - (void)shineBtnDidClick:(UIButton *)sender {
@@ -78,7 +97,7 @@
     param.centerOffset = CGPointMake(touchPoint.x - sender.view.bounds.size.width / 2.0f, touchPoint.y - sender.view.bounds.size.height / 2.0f);
     
     YZShineAnimation *animation = [[YZShineAnimation alloc] initWithAnimationViewLayer:sender.view.layer withShineParams:param];
-    [animation startAnimation];
+    [animation startShineAnimation];
 }
 
 - (void)shineImgViewSingleTap:(UIGestureRecognizer *)sender {
@@ -89,13 +108,14 @@
     param.animDuration = 5.0f;
     param.lineWidth = 8.0f;
     param.count = 15;
-    param.size = 0.0f;
-    param.offsetAngle = 85.0f;
-    param.distanceMultiple = 3.0f;
+    param.bigRadius = 0.0f;
+    param.offsetAngle = 32.0f;
+//    param.distanceMultiple = 3.0f;
     param.allowRandomColor = YES;
+//    param.offsetDistance = 5.0f;
     
     YZShineAnimation *animation = [[YZShineAnimation alloc] initWithAnimationViewLayer:sender.view.layer withShineParams:param];
-    [animation startAnimation];
+    [animation startShineAnimation];
 }
 
 #pragma mark - Public Methods
@@ -118,10 +138,24 @@
     [self.view addSubview:self.shineLbl];
     [self.view addSubview:self.shineImgView];
     
+    self.shineView.tag = 1000;
+    self.shineBtn.tag = 1001;
+    self.shineLbl.tag = 1002;
+    self.shineImgView.tag = 1003;
+    
     self.shineView.frame = CGRectMake(CGRectGetMidX(self.view.bounds) - 64.0f/2.0f, CGRectGetMaxY(tipsLbl.frame) + 64.0f, 64.0f, 44.0f);
     self.shineBtn.frame = CGRectMake(CGRectGetMidX(self.view.bounds) - 44.0f/2.0f, CGRectGetMaxY(self.shineView.frame) + 64.0f, 44.0f, 44.0f);
     self.shineLbl.frame = CGRectMake(CGRectGetMidX(self.view.bounds) - 260.0f/2.0f, CGRectGetMaxY(self.shineBtn.frame) + 64.0f, 260.0f, 30.0f);
     self.shineImgView.frame = CGRectMake(CGRectGetMidX(self.view.bounds) - 60.0f/2.0f, CGRectGetMaxY(self.shineLbl.frame) + 64.0f, 60.0f, 60.0f);
+    
+    // 开启动画效果
+    for (NSInteger i = 0; i < 4; i++) {
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5*i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIView *targetView = [weakSelf.view viewWithTag:(1000 + i)];
+            if (targetView != nil) [YZShineAnimation startShineAnimation:targetView.layer];
+        });
+    }
 }
 
 #pragma mark - Setter & Getter

@@ -19,6 +19,8 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		601C931628AC9B950058E59F /* YZLoadingAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 601C931528AC9B950058E59F /* YZLoadingAnimationViewController.m */; };
+		601C931728AC9B950058E59F /* YZLoadingAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 601C931528AC9B950058E59F /* YZLoadingAnimationViewController.m */; };
 		60D6477028AA1E7D006FAD33 /* YZAnimationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D6476F28AA1E7D006FAD33 /* YZAnimationListViewController.m */; };
 		60D6477128AA1E7D006FAD33 /* YZAnimationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D6476F28AA1E7D006FAD33 /* YZAnimationListViewController.m */; };
 		60D6477628AA204F006FAD33 /* YZShineAnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D6477528AA204F006FAD33 /* YZShineAnimationViewController.m */; };
@@ -59,6 +61,8 @@
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
+		601C931428AC9B950058E59F /* YZLoadingAnimationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YZLoadingAnimationViewController.h; path = Controller/YZLoadingAnimationViewController.h; sourceTree = "<group>"; };
+		601C931528AC9B950058E59F /* YZLoadingAnimationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YZLoadingAnimationViewController.m; path = Controller/YZLoadingAnimationViewController.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		60D6476E28AA1E7D006FAD33 /* YZAnimationListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YZAnimationListViewController.h; sourceTree = "<group>"; };
 		60D6476F28AA1E7D006FAD33 /* YZAnimationListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YZAnimationListViewController.m; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 			children = (
 				60D6477428AA204F006FAD33 /* YZShineAnimationViewController.h */,
 				60D6477528AA204F006FAD33 /* YZShineAnimationViewController.m */,
+				601C931428AC9B950058E59F /* YZLoadingAnimationViewController.h */,
+				601C931528AC9B950058E59F /* YZLoadingAnimationViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -383,6 +389,7 @@
 				60D6477628AA204F006FAD33 /* YZShineAnimationViewController.m in Sources */,
 				6003F59E195388D20070C39A /* YZAppDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				601C931628AC9B950058E59F /* YZLoadingAnimationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60D6477128AA1E7D006FAD33 /* YZAnimationListViewController.m in Sources */,
+				601C931728AC9B950058E59F /* YZLoadingAnimationViewController.m in Sources */,
 				60D6477728AA204F006FAD33 /* YZShineAnimationViewController.m in Sources */,
 				6003F5BC195388D20070C39A /* Tests.m in Sources */,
 			);

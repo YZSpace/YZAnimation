@@ -14,6 +14,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _animDuration = 2.0f;
+        _stopAnim = YES;
     }
     
     return self;

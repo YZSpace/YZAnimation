@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 整个动画过程时间，默认为2.0
 @property (nonatomic, assign) CGFloat animDuration;
+/// 开启动画时是否停止同类型动画效果，默认为YES
+@property (nonatomic, assign) BOOL stopAnim;
 
 @end
 

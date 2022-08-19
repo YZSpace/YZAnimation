@@ -15,27 +15,17 @@
     if (self = [super init]) {
         _enableFlashing = NO;
         _count = 8;
-        _size = 8.0f;
+        _bigRadius = 8.0f;
+        _smallRadius = 0.0f;
         _turnAngle = 20.0f;
         _distanceMultiple = 2.0f;
         _offsetAngle = 20.0f;
-        _centerOffset = CGPointMake(0.0f, 0.0f);
+        _offsetDistance = 0.0f;
+        _centerOffset = CGPointZero;
         
         _allowRandomColor = NO;
         _bigShineColor = YZ_RGB_COLOR(255.0f, 102.0f, 102.0f);
         _smallShineColor = YZ_RGB_COLOR(255.0f, 165.0f, 0.0f);
-        _colorRandomArr = @[
-            YZ_RGB_COLOR(255.0f, 255.0f, 153.0f),
-            YZ_RGB_COLOR(255.0f, 204.0f, 204.0f),
-            YZ_RGB_COLOR(153.0f, 102.0f, 153.0f),
-            YZ_RGB_COLOR(255.0f, 102.0f, 102.0f),
-            YZ_RGB_COLOR(255.0f, 255.0f, 102.0f),
-            YZ_RGB_COLOR(244.0f, 67.0f, 54.0f),
-            YZ_RGB_COLOR(102.0f, 102.0f, 102.0f),
-            YZ_RGB_COLOR(204.0f, 204.0f, 0.0f),
-            YZ_RGB_COLOR(102.0f, 102.0f, 102.0f),
-            YZ_RGB_COLOR(153.0f, 153.0f, 51.0f)
-        ];
         
         _fillColor = [UIColor whiteColor];
         _strokeColor = YZ_RGB_COLOR(255.0f, 102.0f, 102.0f);
@@ -66,17 +56,15 @@
 }
 
 - (CGFloat)bigShineSize:(CGSize)layerSize {
+    if (self.bigRadius > 0.0f) return self.bigRadius;
+    
     CGFloat maxSize = MAX(layerSize.width, layerSize.height);
-    
-    CGFloat shineSize = maxSize * 0.15f;
-    if (self.size > 0.0f) {
-        shineSize = self.size;
-    }
-    
-    return shineSize;
+    return maxSize * 0.15f;
 }
 
 - (CGFloat)smallShineSize:(CGSize)layerSize {
+    if (self.smallRadius > 0.0f) return self.smallRadius;
+    
     CGFloat bigSize = [self bigShineSize:layerSize];
     return bigSize * 0.6f;
 }
@@ -97,8 +85,10 @@
     // 不支持随机颜色
     if (self.allowRandomColor == NO) return nil;
     
-    // 随机颜色数组为空
-    if (self.colorRandomArr == nil || self.colorRandomArr.count <= 0) return nil;
+    // 随机颜色数组为空时，使用arc4random_uniform随机颜色
+    if (self.colorRandomArr == nil || self.colorRandomArr.count <= 0) {
+        return YZ_RGB_COLOR(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256));
+    }
     
     // 随机颜色
     NSInteger index = arc4random() % self.colorRandomArr.count;

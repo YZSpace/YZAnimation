@@ -12,12 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YZAnimation : NSObject
 
-/// 开启视图动画
-- (void)startAnimation;
-
-/// 停止视图动画
+/// 停止有关YZAnimation所有的视图动画
 /// @param layer 需要停止的视图层
-- (void)stopAnimation:(CALayer *)layer;
++ (void)stopAllAnimations:(CALayer *)layer;
 
 @end
 

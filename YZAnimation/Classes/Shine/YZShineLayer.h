@@ -23,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithShineParams:(YZShineParams *)params;
 
 /// 开启视图动画
-- (void)startShineAnimation;
+- (void)startAnimation;
 
 /// 停止视图动画
-- (void)stopShineAnimation;
+- (void)stopAnimation;
 
 @end
 

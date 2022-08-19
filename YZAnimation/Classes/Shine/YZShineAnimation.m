@@ -27,6 +27,7 @@
         // 修正参数数值
         if (params.count < 2)  params.count = 8;
         if (params.distanceMultiple <= 0.0f) params.distanceMultiple = 2.0f;
+        if (params.offsetDistance <= 0.0f) params.offsetDistance = 0.0f;
         
         // 添加shine动画视图层
         [self setupAnimationLayer:layer withShineParams:params];
@@ -43,16 +44,34 @@
 
 + (YZShineAnimation *)startShineAnimation:(CALayer *)layer {
     YZShineAnimation *anmiation = [[YZShineAnimation alloc] initWithAnimationViewLayer:layer withShineParams:nil];
-    [anmiation startAnimation];
+    [anmiation startShineAnimation];
     
     return anmiation;
 }
 
-- (void)startAnimation {
-    [self.shineLayer startShineAnimation];
++ (void)stopAllShineAnimation:(CALayer *)layer {
+    if (layer == nil || layer.sublayers.count <= 0) return;
+    
+    // 移除子视图层中有关shine视图层
+    NSMutableArray <YZShineLayer *> *arrM = [NSMutableArray arrayWithCapacity:layer.sublayers.count];
+    for (CALayer *subLayer in layer.sublayers) {
+        if ([subLayer isKindOfClass:[YZShineLayer class]] == YES) {
+            [arrM addObject:((YZShineLayer *)subLayer)];
+        }
+    }
+    // 停止shine视图层
+    if (arrM.count > 0) {
+        [arrM makeObjectsPerformSelector:@selector(stopAnimation)];
+        [arrM removeAllObjects];
+        arrM = nil;
+    }
 }
 
-- (void)stopAnimation:(CALayer *)layer {
+- (void)startShineAnimation {
+    [self.shineLayer startAnimation];
+}
+
+- (void)stopShineAnimation:(CALayer *)layer {
     if (layer == nil) return;
     // 移除目标视图层动画
     [layer removeAllAnimations];
@@ -63,7 +82,7 @@
         if ([subLayer isKindOfClass:[YZShineLayer class]] == YES) {
             YZShineLayer *shineLayer = (YZShineLayer *)subLayer;
             if (shineLayer.targetLayer == layer) { // 同一目标视图，停止太阳光动画
-                [shineLayer stopShineAnimation];
+                [shineLayer stopAnimation];
                 break;
             }
         }
@@ -76,8 +95,10 @@
 /// @param layer 需要显示动画的视图layer
 /// @param params 动画参数
 - (void)setupAnimationLayer:(CALayer *)layer withShineParams:(YZShineParams *)params {
-    // 先移除显示层动画
-    [self stopAnimation:layer];
+    // 先停止显示层动画
+    if (params.stopAnim == YES) {
+        [self stopShineAnimation:layer];
+    }
     
     // 所要显示动画的视图层不存在父级层，违背设计逻辑，无法处理
     if (layer.superlayer == nil) return;

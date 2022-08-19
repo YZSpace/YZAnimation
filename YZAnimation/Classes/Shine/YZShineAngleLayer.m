@@ -48,7 +48,7 @@
 
 /// 屏幕定时刷新处理方法
 - (void)handleAngleDisplayLink:(CADisplayLink *)displayLink {
-    if (_params.colorRandomArr == nil || _params.colorRandomArr.count <= 0 || _params.count <= 0) return;
+    if (_params.count <= 0) return;
 
     for (NSInteger i = 0; i < self.params.count; i++) {
         // 大点层视图
@@ -96,7 +96,7 @@
         if (self.smallShineLayers.count > i) {
             CAShapeLayer *smallShine = [self.smallShineLayers objectAtIndex:i];
             // 运动轨迹动画
-            CABasicAnimation *smallAnim = [self angleAnimation:smallShine withAngle:(startAngle + angle*i - [self.params offsetAngleMPIValue]) withRadius:(radius - [self.params smallShineSize:self.bounds.size])];
+            CABasicAnimation *smallAnim = [self angleAnimation:smallShine withAngle:(startAngle + angle*i - [self.params offsetAngleMPIValue]) withRadius:(radius - [self.params smallShineSize:self.bounds.size] - self.params.offsetDistance)];
             [smallShine addAnimation:smallAnim forKey:@"path"];
             // 闪烁效果
             if (self.params.enableFlashing == YES) {
@@ -146,7 +146,7 @@
         
         // ******* 小点视图层 ******* //
         CGFloat smallShineSize = [self.params smallShineSize:self.bounds.size];
-        CGPoint smallCenter = [self shineCenterPoint:(startAngle + angle*i - [self.params offsetAngleMPIValue]) withRadius:(radius - bigShineSize)];
+        CGPoint smallCenter = [self shineCenterPoint:(startAngle + angle*i - [self.params offsetAngleMPIValue]) withRadius:(radius - bigShineSize - self.params.offsetDistance)];
         UIBezierPath *smallPath = [UIBezierPath bezierPathWithArcCenter:smallCenter radius:smallShineSize startAngle:0 endAngle:M_PI*2 clockwise:NO];
         CAShapeLayer *smallShine = [[CAShapeLayer alloc] init];
         smallShine.path = smallPath.CGPath;

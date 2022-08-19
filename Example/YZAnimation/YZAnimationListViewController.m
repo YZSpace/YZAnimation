@@ -9,6 +9,7 @@
 #import "YZAnimationListViewController.h"
 
 #import "YZShineAnimationViewController.h"
+#import "YZLoadingAnimationViewController.h"
 
 @interface YZAnimationListViewController ()
 
@@ -81,7 +82,9 @@
         case 0:
             targetVc = [[YZShineAnimationViewController alloc] init];
             break;
-            
+        case 1:
+            targetVc = [[YZLoadingAnimationViewController alloc] init];
+            break;
         default:
             break;
     }
@@ -97,7 +100,7 @@
 
 - (NSArray <NSString *> *)listArr {
     if (_listArr == nil) {
-        _listArr = @[@"Shine Animation"];
+        _listArr = @[@"Shine Animation", @"Loading Animation"];
     }
     
     return _listArr;

@@ -58,7 +58,7 @@ static NSString * const kPathAnimationKeyPath = @"path";
 
 #pragma mark - Public Methods
 
-- (void)startShineAnimation {
+- (void)startAnimation {
     // 扩散半径动画
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:kPathAnimationKeyPath];
     // 扩散动画时长
@@ -86,7 +86,7 @@ static NSString * const kPathAnimationKeyPath = @"path";
     }
 }
 
-- (void)stopShineAnimation {
+- (void)stopAnimation {
     // 停止屏幕频率定时器
     [self stopDisplayLink];
     // 移除扩散视图层
@@ -112,9 +112,6 @@ static NSString * const kPathAnimationKeyPath = @"path";
 - (void)startFlash {
     // 停止屏幕频率定时器
     [self stopDisplayLink];
-    
-    // 无随机颜色数据时，不添加屏幕刷新处理
-    if (_params.colorRandomArr == nil || _params.colorRandomArr.count <= 0) return;
     
     // 在mainRunLoop执行
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];

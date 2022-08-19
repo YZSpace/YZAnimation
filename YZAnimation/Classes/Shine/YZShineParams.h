@@ -18,16 +18,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL enableFlashing;
 /// 太阳光点（大点和小点）个数，默认为8；小于2时修正为8
 @property (nonatomic, assign) NSInteger count;
-/// 点的大小（大点*100%，小点*60%），默认为8
-@property (nonatomic, assign) CGFloat size;
+/// 大点的半径，默认为8
+@property (nonatomic, assign) CGFloat bigRadius;
+/// 小点的半径，默认为0，小于等于0时占bigRadius的60%
+@property (nonatomic, assign) CGFloat smallRadius;
 /// 扩散时的旋转角度，值越大，旋转越快，默认为20
 @property (nonatomic, assign) CGFloat turnAngle;
 /// 扩散时的范围倍数，默认为2
 /// @warning 数值不可小于0，否则会被强制修正为2
 @property (nonatomic, assign) CGFloat distanceMultiple;
-/// 扩散时的旋转偏移角度，默认为20
+/// 小点与大点的偏移角度，默认为20
 @property (nonatomic, assign) CGFloat offsetAngle;
-/// 动画效果距离显示视图中心点偏移坐标，默认为zore
+/// 小点与大点距离中心点的偏移距离，值越大，小点离大点越远。默认为0，值不可以小于0
+@property (nonatomic, assign) CGFloat offsetDistance;
+/// 动画效果距离显示视图中心点偏移坐标，默认为zero
 @property (nonatomic, assign) CGPoint centerOffset;
 
 /// 是否允许使用随机，默认为NO
@@ -36,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *bigShineColor;
 /// 小点的颜色，默认为浅灰色(255, 165, 0)
 @property (nonatomic, strong) UIColor *smallShineColor;
-/// 点随机颜色集合
+/// 点随机颜色集合，默认为空。为空时则使用arc4random_uniform(256)随机颜色值
 @property (nonatomic, strong) NSArray <UIColor *> *colorRandomArr;
 
 /// 圆形扩散形状layer填充颜色，默认为白色(whiteColor)
@@ -73,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)angleAnimationDuration;
 
 /// 尝试随机生成颜色
+/// @warning 优先使用colorRandomArr中的数据随机，如果为空则使用arc4random_uniform(256)随机颜色值
 /// @warning 不支持随机功能时返回空
 - (nullable UIColor *)randomColor;
 
